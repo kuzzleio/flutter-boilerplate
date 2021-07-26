@@ -1,0 +1,28 @@
+login:
+  title: Login
+  email: Email
+  password: Password
+  emailValidator: Please enter an email
+  passwordValidator: Please enter a password
+  loginButtonLabel: Login
+home:
+  title: Home
+  welcome: Welcome home!
+errors:
+  logoutError: Error while logging out
+menu:
+  home:
+    label: Home
+    title: Home
+  map:
+    label: Map
+    title: My location
+  notification:
+    label: Notifications
+    title: My notifications
+  settings:
+    label: Settings
+    title: Settings
+  croissant:
+    label: Croissant
+    title: Miam
