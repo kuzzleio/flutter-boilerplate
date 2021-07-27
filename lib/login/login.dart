@@ -29,7 +29,7 @@ class _Login extends State<Login> {
   void initState() {
     super.initState();
     _error = widget.error;
-    const FlutterSecureStorage().read(key: 'rememberEmail').then((value) {
+    const FlutterSecureStorage().read(key: 'rememberMe').then((value) {
       if (value != null) {
         setState(() {
           _rememberMe = true;
@@ -183,7 +183,7 @@ class _Login extends State<Login> {
                                     key: 'kuzzleToken', value: res);
                                 if (_rememberMe) {
                                   await storage.write(
-                                    key: 'rememberEmail',
+                                    key: 'rememberMe',
                                     value: _emailController.text,
                                   );
                                 }
