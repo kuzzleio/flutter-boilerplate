@@ -29,6 +29,7 @@ String get languageCode => "en";
 	String get emailValidator => """Please enter an email""";
 	String get passwordValidator => """Please enter a password""";
 	String get loginButtonLabel => """Login""";
+	String get rememberEmail => """Remember me""";
 }
 
 class HomeMessages {
@@ -113,6 +114,7 @@ Map<String, String> get messagesMap => {
 	"""login.emailValidator""": """Please enter an email""",
 	"""login.passwordValidator""": """Please enter a password""",
 	"""login.loginButtonLabel""": """Login""",
+	"""login.rememberEmail""": """Remember me""",
 	"""home.title""": """Home""",
 	"""home.welcome""": """Welcome home!""",
 	"""errors.logoutError""": """Error while logging out""",

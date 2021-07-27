@@ -5,6 +5,7 @@ login:
   emailValidator: Please enter an email
   passwordValidator: Please enter a password
   loginButtonLabel: Login
+  rememberEmail: Remember me
 home:
   title: Home
   welcome: Welcome home!

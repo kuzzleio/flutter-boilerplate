@@ -23,11 +23,20 @@ class _Login extends State<Login> {
   final _m = const Messages();
   String? _error;
   bool _showPassword = false;
+  bool _rememberMe = false;
 
   @override
   void initState() {
     super.initState();
     _error = widget.error;
+    const FlutterSecureStorage().read(key: 'rememberEmail').then((value) {
+      if (value != null) {
+        setState(() {
+          _rememberMe = true;
+          _emailController.text = value;
+        });
+      }
+    });
   }
 
   @override
@@ -48,7 +57,7 @@ class _Login extends State<Login> {
               children: <Widget>[
                 Padding(
                   padding: const EdgeInsets.only(
-                      top: 120, left: 50, right: 50, bottom: 50),
+                      top: 30, left: 50, right: 50, bottom: 30),
                   child: Center(
                     child: Image.asset('assets/images/logo.png'),
                   ),
@@ -58,23 +67,18 @@ class _Login extends State<Login> {
                       const EdgeInsets.only(left: 15.0, right: 15.0, top: 20),
                   child: Column(
                     children: [
-                      Theme(
-                        data: Theme.of(context).copyWith(
-                          primaryColor: Colors.black,
+                      TextFormField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.email_outlined),
+                          labelText: _m.login.email,
                         ),
-                        child: TextFormField(
-                          controller: _emailController,
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.email_outlined),
-                            labelText: _m.login.email,
-                          ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return _m.login.emailValidator;
-                            }
-                            return null;
-                          },
-                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return _m.login.emailValidator;
+                          }
+                          return null;
+                        },
                       ),
                     ],
                   ),
@@ -84,37 +88,48 @@ class _Login extends State<Login> {
                       left: 15.0, right: 15.0, top: 15, bottom: 0),
                   child: Column(
                     children: [
-                      Theme(
-                        data: Theme.of(context).copyWith(
-                          primaryColor: Colors.black,
-                        ),
-                        child: TextFormField(
-                          controller: _passwordController,
-                          obscureText: !_showPassword,
-                          decoration: InputDecoration(
-                            prefixIcon: const Icon(Icons.lock_outline),
-                            labelText: _m.login.password,
-                            suffixIcon: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  _showPassword = !_showPassword;
-                                });
-                              },
-                              child: Icon(
-                                _showPassword
-                                    ? Icons.visibility
-                                    : Icons.visibility_off,
-                              ),
+                      TextFormField(
+                        controller: _passwordController,
+                        obscureText: !_showPassword,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.lock_outline),
+                          labelText: _m.login.password,
+                          suffixIcon: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                _showPassword = !_showPassword;
+                              });
+                            },
+                            child: Icon(
+                              _showPassword
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
                             ),
                           ),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return _m.login.passwordValidator;
-                            }
-                            return null;
-                          },
                         ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return _m.login.passwordValidator;
+                          }
+                          return null;
+                        },
                       ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        value: _rememberMe,
+                        onChanged: (value) {
+                          setState(() {
+                            _rememberMe = value ?? false;
+                          });
+                        },
+                      ),
+                      Text(_m.login.rememberEmail),
                     ],
                   ),
                 ),
@@ -166,6 +181,12 @@ class _Login extends State<Login> {
                                 const storage = FlutterSecureStorage();
                                 await storage.write(
                                     key: 'kuzzleToken', value: res);
+                                if (_rememberMe) {
+                                  await storage.write(
+                                    key: 'rememberEmail',
+                                    value: _emailController.text,
+                                  );
+                                }
                                 Navigator.pushReplacementNamed(context, '/');
                               } catch (e) {
                                 setState(() {

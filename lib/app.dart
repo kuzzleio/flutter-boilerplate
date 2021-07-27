@@ -48,7 +48,7 @@ class _AppState extends State<App> {
                       });
                     },
                   ),
-              'login': (context) => Login(),
+              'login': (context) => const Login(),
             },
           ),
         ),
