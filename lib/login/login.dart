@@ -129,7 +129,7 @@ class _Login extends State<Login> {
                           });
                         },
                       ),
-                      Text(_m.login.rememberEmail),
+                      Text(_m.login.rememberMe),
                     ],
                   ),
                 ),
