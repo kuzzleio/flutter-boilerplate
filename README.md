@@ -6,7 +6,7 @@ Also contains a Home page with a bottom navigation bar and the logout logic.
 
 ## I18n
 
-This boilerplate integrate a i18n file: messages/i18n.yaml.
+This boilerplate integrate a i18n file: messages.i18n.yaml.
 After updating this file you should run the following command:
 
 ```sh
