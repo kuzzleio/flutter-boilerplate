@@ -6,11 +6,15 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Image.asset(
               'assets/images/splashscreen.png',
-              fit: BoxFit.cover,
-              alignment: Alignment.center,
+              fit: BoxFit.fill,
+            ),
+            const CircularProgressIndicator(
+              color: Color(0xff002835),
             ),
           ],
         ),

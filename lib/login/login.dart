@@ -170,10 +170,12 @@ class _Login extends State<Login> {
                               } catch (e) {
                                 setState(() {
                                   _loggingIn = false;
-                                  _error = (e as KuzzleError)
-                                          .message![0]
-                                          .toUpperCase() +
-                                      e.message!.substring(1);
+                                  if ((e as KuzzleError).message != null) {
+                                    _error = e.message![0].toUpperCase() +
+                                        e.message!.substring(1);
+                                  } else {
+                                    _error = e.id;
+                                  }
                                 });
                               }
                             }

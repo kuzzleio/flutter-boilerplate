@@ -34,6 +34,9 @@ class _Root extends State<Root> {
     final kuzzle = KuzzleSdk.of(context).kuzzle;
     try {
       await kuzzle.connect();
+      kuzzle.on('error', (err) {
+        print(err);
+      });
       const storage = FlutterSecureStorage();
       final storedToken = await storage.read(key: 'kuzzleToken');
 
@@ -60,7 +63,7 @@ class _Root extends State<Root> {
     } catch (err) {
       setState(() {
         if (err is SocketException) {
-          _error = err.message;
+          _error = err.osError?.message ?? err.message;
           tokenState = TokenState.expired;
         } else {
           _error = (err as KuzzleError).message;
