@@ -102,8 +102,8 @@ class _Login extends State<Login> {
                             },
                             child: Icon(
                               _showPassword
-                                  ? Icons.visibility
-                                  : Icons.visibility_off,
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
                             ),
                           ),
                         ),
