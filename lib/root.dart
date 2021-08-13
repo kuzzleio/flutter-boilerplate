@@ -60,14 +60,20 @@ class _Root extends State<Root> {
           });
         }
       }
+   } on SocketException catch (err) {
+      setState(() {
+        _error = err.osError?.message ?? err.message;
+        tokenState = TokenState.expired;
+      });
+    } on WebSocketException catch (err) {
+      setState(() {
+        _error = err.message;
+        tokenState = TokenState.expired;
+      });
     } catch (err) {
       setState(() {
-        if (err is SocketException) {
-          _error = err.osError?.message ?? err.message;
-          tokenState = TokenState.expired;
-        } else {
-          _error = (err as KuzzleError).message;
-        }
+        _error = (err as KuzzleError).message;
+        tokenState = TokenState.expired;
       });
     }
   }
