@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_boilerplate/inherited/kuzzle_sdk.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -94,7 +92,7 @@ class _Login extends State<Login> {
                         decoration: InputDecoration(
                           prefixIcon: const Icon(Icons.lock_outline),
                           labelText: _m.login.password,
-                          suffixIcon: GestureDetector(
+                          suffixIcon: InkWell(
                             onTap: () {
                               setState(() {
                                 _showPassword = !_showPassword;
@@ -136,7 +134,7 @@ class _Login extends State<Login> {
                 Opacity(
                   opacity: _error == null ? 0.0 : 1.0,
                   child: Padding(
-                    padding: const EdgeInsets.only(top: 15.0),
+                    padding: const EdgeInsets.all(15.0),
                     child: Text(
                       _error ?? '',
                       style: const TextStyle(color: Colors.red),
