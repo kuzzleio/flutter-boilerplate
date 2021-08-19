@@ -49,6 +49,13 @@ class _Root extends State<Root> {
         if (checkTokenResponse['valid'] == true) {
           KuzzleSdk.of(context).kuzzle.jwt = storedToken;
           final currentUser = await kuzzle.auth.getCurrentUser();
+          kuzzle.on('queryError', (request, error) {
+            if (request is KuzzleError &&
+                request.id == 'security.token.expired') {
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('login', (route) => false);
+            }
+          });
           widget.updateUser?.call(currentUser);
           setState(() {
             tokenState = TokenState.done;
